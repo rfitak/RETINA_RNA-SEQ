@@ -5,6 +5,9 @@ All that is required is a file listing the base names of the paired sequencing d
 # Move into the appropriate folder
 cd /work/frr6/RETINA
 
+# Make an output folder for trimmed sequence files
+mkdir TRIMMED_SEQS
+
 # Assign SLURM array number to $job
 job=$SLURM_ARRAY_TASK_ID
 
