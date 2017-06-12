@@ -14,7 +14,6 @@ name=$(sed -n "${job}"p RAW_SEQS/seqfiles.list)
 # Assign forward and reverse variable to each sequencing file
 forward=RAW_SEQS/${name}.F.fastq.gz
 reverse=RAW_SEQS/${name}.R.fastq.gz
-#out=$(echo -n "${name}" | sed -e "s/^[0-9]*_OMY-//" -e "s/OMY-//" -e "s/_S[0-9]*$//")
 ```
 
 Now two variables, $forward and $reverse, contain the name of matching forward and reverse (paired) sequencing files.  Now we begin the trimming procedure using the program TRIMMOMATIC v0.36.  Before trimming, we have to assign "trimmomatic" to the actual command to run the program.  This is a simple bash script called "trimmomatic" and is in the ~/bin folder where all programs are stored.
@@ -63,7 +62,7 @@ Here is a desciption of the parameters:
   * 7 :: simpleClipThreshold: specifies how accurate the match between any adapter etc. sequence must be against a read.
  - LEADING:20 :: trim bases from start of the read with a Q < 20
  - TRAILING:20 :: trim bases from end of the read with a Q < 20
- - SLIDINGWINDOW:4:20 :: using a 4-base window, remove the last base if Q < 20
+ - SLIDINGWINDOW:4:20 :: using a 4-base window, remove the last base if average Q < 20
  - AVGQUAL:20 :: remove the entire read if the average quality is < 20
  - MINLEN:50 :: remove reads less than 50 bases after quality trimming
  
