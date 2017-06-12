@@ -33,3 +33,11 @@ for i in {1..24}; do
 # End the loop
 done
 ```
+Description of the above parameters:
+- -p 8 :: use 8 CPUs (threads)
+- -o \<folder\> :: folder to place the output files
+- --GTF-guide \<file\>:: GTF file of annotations
+- --frag-bias-correct \<file\> :: use bias correction - reference fasta required
+- --multi-read-correct :: use 'rescue method' for multi-reads (more accurate)
+- --library-type fr-firststrand :: library type, normal for dUTP protocols
+- --verbose :: log-friendly verbose processing
