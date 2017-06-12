@@ -21,6 +21,10 @@ cd ~
 
 Download the nuclear and mitochondrial genomes and merge together
 ```
+# Make a new folder for the reference files
+mkdir TROUT_REF
+cd TROUT_REF
+
 # Download the trout reference nuclear genome
 wget http://www.genoscope.cns.fr/trout/data/Oncorhynchus_mykiss_chr.fa.gz
 
