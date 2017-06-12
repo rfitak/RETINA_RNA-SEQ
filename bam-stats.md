@@ -1,6 +1,9 @@
 # Calculate summary statistics from the BAM files
 Collect several summary statistics from the BAM files using SAMTOOLS v1.3
 ```
+# Move into the mapping folder
+cd MAPPING
+
 # Get statistics for bam files
 for i in {1..24}
    do
