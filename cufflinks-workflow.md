@@ -88,7 +88,6 @@ for i in {1..24}; do
       -o LIBRARY_${i} \
       --multi-read-correct \
       --library-type fr-firststrand \
-      --min-alignment-count 10 \
       --verbose \
       --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
       /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
@@ -105,7 +104,6 @@ Description of parameters:
 - -o ./ :: folder to place the output files (current folder)
 - --multi-read-correct :: use 'rescue method' for multi-reads (more accurate)
 - --library-type fr-firststrand :: library type, normal for dUTP protocols
-- --min-alignment-count 10 :: minimum number of alignments in a locus for testing, 10 by default
 - --verbose :: log-friendly verbose processing
 - --frag-bias-correct \<file\> :: use bias correction - reference fasta required
 - location of merged annotation file
