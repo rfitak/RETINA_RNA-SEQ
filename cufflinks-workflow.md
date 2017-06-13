@@ -5,7 +5,7 @@ All steps are guided by, or include, the reference annotations we made earlier. 
 3. Quantify the expression
 4. Calculate differential expression
 
-# Step 1:  Assembly
+## Step 1:  Assembly
 ```
 # Make Cufflinks folder
 mkdir CUFFLINKS
@@ -41,3 +41,32 @@ Description of the above parameters:
 - --multi-read-correct :: use 'rescue method' for multi-reads (more accurate)
 - --library-type fr-firststrand :: library type, normal for dUTP protocols
 - --verbose :: log-friendly verbose processing
+
+## Step 2: Merge Assemblies
+```
+# Make MERGED assembly folder
+mkdir MERGED
+cd MERGED
+
+# Make lsit of all merged assembly files
+ls /work/frr6/RETINA/CUFFLINKS/ASSEMBLY_*/transcripts.gtf > assembly_GTF_list.txt
+
+# Run cuffmerge
+cuffmerge \
+   -p 8 \
+   -o ./ \
+   --ref-gtf /work/frr6/RETINA/TROUT_REF/O_mykiss.annot.gtf \
+   --ref-sequence /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+   --min-isoform-fraction 0.05 \
+   assembly_GTF_list.txt
+```
+Description of parameters:
+- -p 8 :: use 8 CPUs (threads)
+- -o ./ :: folder to place the output files (current folder)
+- --ref-gtf \<file\> :: An optional "reference" annotation GTF of original annotations
+- --ref-sequence \<file\> :: Genomic DNA sequences for the reference
+- --min-isoform-fraction 0.05 :: Discard isoforms with abundance below this.  Range is 0-1
+
+
+
+
