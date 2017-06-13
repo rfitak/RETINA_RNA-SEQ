@@ -118,8 +118,56 @@ mv LIBRARY_${i}/abundances.cxb ${i}_abundances.cxb
 rm -rf LIBRARY_${i}
 done
 ```
-## Step 4:  Differential Expression Analysis
+## Step 4:  Differential Expression (DE) Analysis
 ```
-# Code here
+cd /work/frr6/RETINA/CUFFLINKS
+
+# Make a folder for DE analysis
+mkdir DIFF
+cd DIFF
+
+# Make a folder for each differential expression analysis
+mkdir LCvRC
+mkdir LPvRP
+mkdir LCvLP
+mkdir RCvRP
+
+# Setup path to folder of abundance files
+pth=xxxxxx
+
+# Run X vs Y
+cuffdiff \
+   -p 8 \
+   -o LCvRC \
+   -L LC,RC \
+   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+   --multi-read-correct \
+   --min-alignment-count 10 \
+   --FDR 0.05 \
+   --library-type fr-firststrand \
+   --verbose \
+   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+   ${pth}1/abundances.cxb,${pth}2/abundances.cxb,${pth}3/abundances.cxb,${pth}4/abundances.cxb \
+   ${pth}5/abundances.cxb,${pth}6/abundances.cxb,${pth}7/abundances.cxb,${pth}8/abundances.cxb
+
 ```
+Description of parameters:
+- -p 8 :: use 8 CPUs (threads)
+- -o \<folder\> :: folder to place the output files
+- -L \<first group,second group\> :: comma-separated list of condition labels 
+- --frag-bias-correct \<file\> :: use bias correction - reference fasta required
+- --multi-read-correct :: use 'rescue method' for multi-reads (more accurate)
+- --min-alignment-count 10 :: minimum number of alignments in a locus for testing, 10 by default
+- --FDR 0.05 :: False discovery rate cutoff
+- --library-type fr-firststrand :: library type, normal for dUTP protocols
+- --verbose :: log-friendly verbose processing
+- location of merged annotation file
+- comma separated list of files for first group (see --L)
+- comma separated list of files for second group (see --L)
+
+
+
+
+
+
 
