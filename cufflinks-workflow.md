@@ -131,11 +131,15 @@ mkdir LCvRC
 mkdir LPvRP
 mkdir LCvLP
 mkdir RCvRP
+   # LC = left control group
+   # RC = right control group
+   # LP = left pulsed group
+   # RP = right pulsed group
 
 # Setup path to folder of abundance files
-pth=xxxxxx
+pth=/work/frr6/RETINA/CUFFLINKS/QUANT
 
-# Run X vs Y
+# Run left control vs right control
 cuffdiff \
    -p 8 \
    -o LCvRC \
@@ -147,8 +151,8 @@ cuffdiff \
    --library-type fr-firststrand \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}1/abundances.cxb,${pth}2/abundances.cxb,${pth}3/abundances.cxb,${pth}4/abundances.cxb \
-   ${pth}5/abundances.cxb,${pth}6/abundances.cxb,${pth}7/abundances.cxb,${pth}8/abundances.cxb
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
 
 ```
 Description of parameters:
