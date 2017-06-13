@@ -37,6 +37,9 @@ efetch \
 # Merge together fasta files
 zcat Oncorhynchus_mykiss_chr.fa.gz | \
    cat - mito.fa > Omykiss.genome.fa
+
+# Create a samtools v1.3 fasta index (required by CUFFLINKS)
+samtools1.3 faidx Omykiss.genome.fa
 ```
 
 In this part the nuclear annotations are downloaded and reformatted for use with STAR
