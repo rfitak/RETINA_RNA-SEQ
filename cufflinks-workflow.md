@@ -49,7 +49,7 @@ Description of the above parameters:
 mkdir MERGED
 cd MERGED
 
-# Make lsit of all merged assembly files
+# Make list of all merged assembly files
 ls /work/frr6/RETINA/CUFFLINKS/ASSEMBLY_*/transcripts.gtf > assembly_GTF_list.txt
 
 # Run cuffmerge
