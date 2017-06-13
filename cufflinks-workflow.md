@@ -67,6 +67,36 @@ Description of parameters:
 - --ref-sequence \<file\> :: Genomic DNA sequences for the reference
 - --min-isoform-fraction 0.05 :: Discard isoforms with abundance below this.  Range is 0-1
 
+## Step 3: Quantify Expression
+```
+cd /work/frr6/RETINA/CUFFLINKS
 
+# Make new quantification folder
+mkdir QUANT
+cd QUANT
+
+# Loop through all 24 files to quanitfy
+for i in {1..24}; do
+
+   # Make new fodler for each sample
+   mkdir LIBRARY_${i}
+ 
+   # Run cuffquant
+   cuffquant \
+      -p 8 \
+      -o LIBRARY_${SLURM_ARRAY_TASK_ID} \
+      --multi-read-correct \
+      --library-type fr-unstranded \
+      --verbose \
+      --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+      /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+      /work/frr6/RETINA/MAPPING/LIBRARY_${i}/*.mapping-Aligned.sortedByCoord.out.bam
+
+   # Move up a folder
+   cd ..
+   
+# End for loop
+done
+```
 
 
