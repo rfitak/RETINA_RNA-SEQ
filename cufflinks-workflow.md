@@ -4,6 +4,7 @@ All steps are guided by, or include, the reference annotations we made earlier. 
 2. Merge the assemblies together
 3. Quantify the expression
 4. Calculate differential expression
+5. Visualize in R
 
 ## Step 1:  Assembly
 ```
