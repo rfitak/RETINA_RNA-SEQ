@@ -154,6 +154,50 @@ cuffdiff \
    ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
    ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
 
+# Run left pulsed vs right pulsed
+cuffdiff \
+   -p 8 \
+   -o LPvRP \
+   -L LP,RP \
+   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+   --multi-read-correct \
+   --min-alignment-count 10 \
+   --FDR 0.05 \
+   --library-type fr-firststrand \
+   --verbose \
+   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+
+# Run left control vs left pulsed
+cuffdiff \
+   -p 8 \
+   -o LCvLP \
+   -L LC,LP \
+   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+   --multi-read-correct \
+   --min-alignment-count 10 \
+   --FDR 0.05 \
+   --library-type fr-firststrand \
+   --verbose \
+   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+
+# Run right control vs right pulsed
+cuffdiff \
+   -p 8 \
+   -o RCvRP \
+   -L RC,RP \
+   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
+   --multi-read-correct \
+   --min-alignment-count 10 \
+   --FDR 0.05 \
+   --library-type fr-firststrand \
+   --verbose \
+   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
+   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
 ```
 Description of parameters:
 - -p 8 :: use 8 CPUs (threads)
@@ -169,7 +213,10 @@ Description of parameters:
 - comma separated list of files for first group (see --L)
 - comma separated list of files for second group (see --L)
 
-
+## Step 5: Visualization in R using CUMMERBUND v2.18
+```
+# R code
+```
 
 
 
