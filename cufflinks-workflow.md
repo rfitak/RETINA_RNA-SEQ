@@ -78,15 +78,15 @@ cd QUANT
 # Loop through all 24 files to quanitfy
 for i in {1..24}; do
 
-   # Make new fodler for each sample
+   # Make new folder for each sample
    mkdir LIBRARY_${i}
  
    # Run cuffquant
    cuffquant \
       -p 8 \
-      -o LIBRARY_${SLURM_ARRAY_TASK_ID} \
+      -o LIBRARY_${i} \
       --multi-read-correct \
-      --library-type fr-unstranded \
+      --library-type fr-firststrand \
       --verbose \
       --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
       /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
@@ -96,6 +96,24 @@ for i in {1..24}; do
    cd ..
    
 # End for loop
+done
+```
+Description of parameters:
+- -p 8 :: use 8 CPUs (threads)
+- -o ./ :: folder to place the output files (current folder)
+- --multi-read-correct :: use 'rescue method' for multi-reads (more accurate)
+- --library-type fr-firststrand :: library type, normal for dUTP protocols
+- --verbose :: log-friendly verbose processing
+- --frag-bias-correct \<file\> :: use bias correction - reference fasta required
+- location of merged annotation file
+- location of bam file to quanitfy expression
+
+Now clean things up a bit
+```
+# Rename abundance files
+for i in {1..24}; do
+mv LIBRARY_${i}/abundances.cxb ${i}_abundances.cxb
+rm -rf LIBRARY_${i}
 done
 ```
 
