@@ -150,8 +150,8 @@ cuffdiff \
    --library-type fr-firststrand \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+   ${pth}/3_abundances.cxb,${pth}/7_abundances.cxb,${pth}/9_abundances.cxb,${pth}/17_abundances.cxb,${pth}/19_abundances.cxb,${pth}/21_abundances.cxb \
+   ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb
 
 # Run left pulsed vs right pulsed
 cuffdiff \
@@ -165,8 +165,8 @@ cuffdiff \
    --library-type fr-firststrand \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+   ${pth}/1_abundances.cxb,${pth}/5_abundances.cxb,${pth}/11_abundances.cxb,${pth}/13_abundances.cxb,${pth}/15_abundances.cxb,${pth}/23_abundances.cxb \
+   ${pth}/2_abundances.cxb,${pth}/6_abundances.cxb,${pth}/12_abundances.cxb,${pth}/14_abundances.cxb,${pth}/16_abundances.cxb,${pth}/24_abundances.cxb
 
 # Run left control vs left pulsed
 cuffdiff \
@@ -180,8 +180,8 @@ cuffdiff \
    --library-type fr-firststrand \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+   ${pth}/3_abundances.cxb,${pth}/7_abundances.cxb,${pth}/9_abundances.cxb,${pth}/17_abundances.cxb,${pth}/19_abundances.cxb,${pth}/21_abundances.cxb \
+   ${pth}/1_abundances.cxb,${pth}/5_abundances.cxb,${pth}/11_abundances.cxb,${pth}/13_abundances.cxb,${pth}/15_abundances.cxb,${pth}/23_abundances.cxb
 
 # Run right control vs right pulsed
 cuffdiff \
@@ -195,8 +195,8 @@ cuffdiff \
    --library-type fr-firststrand \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb \
-   ${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb,${pth}/abundances.cxb
+   ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb \
+   ${pth}/2_abundances.cxb,${pth}/6_abundances.cxb,${pth}/12_abundances.cxb,${pth}/14_abundances.cxb,${pth}/16_abundances.cxb,${pth}/24_abundances.cxb
 ```
 Description of parameters:
 - -p 8 :: use 8 CPUs (threads)
