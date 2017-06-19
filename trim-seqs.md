@@ -1,7 +1,7 @@
 # This code is for trimming the raw Illumina sequencing data
 All that is required is a file listing the base names of the paired sequencing data.  This file is called seqfiles.list.  The following code was actually run as a SLURM script to the cluster, therefore we had to assign each job in the SLURM array to the variable "job".  The raw sequencing files and seqfiles.lsit are in the RAW_SEQS folder.
 
-```
+```bash
 # Move into the appropriate folder
 cd /work/frr6/RETINA
 
@@ -20,7 +20,7 @@ reverse=RAW_SEQS/${name}.R.fastq.gz
 ```
 
 Now two variables, $forward and $reverse, contain the name of matching forward and reverse (paired) sequencing files.  Now we begin the trimming procedure using the program TRIMMOMATIC v0.36.  Before trimming, we have to assign "trimmomatic" to the actual command to run the program.  This is a simple bash script called "trimmomatic" and is in the ~/bin folder where all programs are stored.
-```
+```bash
 #!/bin/bash
 
 cmd="java -jar /dscrhome/frr6/PROGRAMS/Trimmomatic-0.35/trimmomatic-0.35.jar"
@@ -32,7 +32,7 @@ $cmd
 ```
 
 Now to trim the sequence files.
-```
+```bash
 trimmomatic \
    PE \
    -threads 4 \
