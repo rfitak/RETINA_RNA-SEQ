@@ -37,3 +37,4 @@ for i in {1..24}
    rm tmp
    done
 ```
+The file [counts.tsv](./Data/counts.tsv) can be found in the "Data" folder for this Github repository.  It will be used in downstream analyses.
