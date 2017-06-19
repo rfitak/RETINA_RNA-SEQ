@@ -18,7 +18,32 @@ library(DESeq2)
 # Read in sample information spreadsheet
 samplesheet = read.table("samplesheet.tsv", sep = "\t", header = T)
 
-# Make a list of sample names to match those
+# Make a list of sample names to match those in the counts file
 samplesheet$Library = paste0("Sample_", samplesheet$Library)
 
+# Load count data as a matrix
+data = as.matrix(read.table("counts.tsv", 
+   sep = "\t", row.names = 1, header=T))
+
+# Build DESEQ data object
+dds = DESeqDataSetFromMatrix(countData = data,
+   colData = DataFrame(samplesheet),
+   design = ~ Eye + Treatment + Eye:Treatment)
+
+# Relevel treatment to expression is relative to control
+dds$Treatment = relevel(dds$Treatment, "CONTROL")
+
+# Remove lowly expressed genes
+dds.trim = dds[rowSums(counts(dds))>0,]
+
+# Run DESEQ2
+dds.trim = DESeq(dds.trim)
+
+# Filter Results for false discovery rate (FDR) < 0.05
+res = results(dds.trim, alpha = 0.05)
+
+# Re-order results by FDR
+res.ordered = res[order(res$padj),]
 ```
+
+## Visualizations
