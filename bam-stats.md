@@ -1,6 +1,6 @@
 # Calculate summary statistics from the BAM files
 Collect several summary statistics from the BAM files using SAMTOOLS v1.3
-```
+```bash
 # Move into the mapping folder
 cd MAPPING
 
