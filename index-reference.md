@@ -1,6 +1,6 @@
 # This code is for generating the index using STAR v020201
 This set of code is for generating an index of the trout reference genome using STAR.  In the previous section, the reference genome, annotations, and mitochondrial genome with annotations were all merged together.
-```
+```bash
 # Move into the correct folder
 cd /work/frr6/RETINA/TROUT_REF
 
