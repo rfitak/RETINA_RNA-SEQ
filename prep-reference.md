@@ -6,7 +6,7 @@ In this section the general steps are:
 - Merge genomes and annotations together
 
 Installing NCBI E-utilities to my local /bin folder
-```
+```bash
 cd ~
    perl -MNet::FTP -e \
       '$ftp = new Net::FTP("ftp.ncbi.nlm.nih.gov", Passive => 1);
@@ -20,7 +20,7 @@ cd ~
 ```
 
 Download the nuclear and mitochondrial genomes and merge together
-```
+```bash
 # Make a new folder for the reference files
 mkdir TROUT_REF
 cd TROUT_REF
@@ -43,7 +43,7 @@ samtools1.3 faidx Omykiss.genome.fa
 ```
 
 In this part the nuclear annotations are downloaded and reformatted for use with STAR
-```
+```bash
 # Download annotation
 wget http://www.genoscope.cns.fr/trout/data/Oncorhynchus_mykiss_chr_annot.gff.gz
 
@@ -76,7 +76,7 @@ To get the mitochondrial annotations in gff3 format:
 - Rename this file to mito.gff3
 
 Finally, merge together with the nuclear annotations
-```
+```bash
 # Convert to gtf format
 gffread mito.gff3 -T -E --force-exons -o mito.gtf
 
