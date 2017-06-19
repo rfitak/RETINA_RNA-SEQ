@@ -125,11 +125,7 @@ cd /work/frr6/RETINA/CUFFLINKS
 mkdir DIFF
 cd DIFF
 
-# Make a folder for each differential expression analysis
-mkdir LCvRC
-mkdir LPvRP
-mkdir LCvLP
-mkdir RCvRP
+# Note: sample groups
    # LC = left control group
    # RC = right control group
    # LP = left pulsed group
@@ -138,11 +134,11 @@ mkdir RCvRP
 # Setup path to folder of abundance files
 pth=/work/frr6/RETINA/CUFFLINKS/QUANT
 
-# Run left control vs right control
+# Run cuffdiff - all pairwise group comparisons will be made
 cuffdiff \
    -p 8 \
-   -o LCvRC \
-   -L LC,RC \
+   -o ./ \
+   -L LC,RC,LP,RP \
    --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
    --multi-read-correct \
    --min-alignment-count 10 \
@@ -151,52 +147,10 @@ cuffdiff \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
    ${pth}/3_abundances.cxb,${pth}/7_abundances.cxb,${pth}/9_abundances.cxb,${pth}/17_abundances.cxb,${pth}/19_abundances.cxb,${pth}/21_abundances.cxb \
-   ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb
-
-# Run left pulsed vs right pulsed
-cuffdiff \
-   -p 8 \
-   -o LPvRP \
-   -L LP,RP \
-   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
-   --multi-read-correct \
-   --min-alignment-count 10 \
-   --FDR 0.05 \
-   --library-type fr-firststrand \
-   --verbose \
-   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
+   ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb \
    ${pth}/1_abundances.cxb,${pth}/5_abundances.cxb,${pth}/11_abundances.cxb,${pth}/13_abundances.cxb,${pth}/15_abundances.cxb,${pth}/23_abundances.cxb \
    ${pth}/2_abundances.cxb,${pth}/6_abundances.cxb,${pth}/12_abundances.cxb,${pth}/14_abundances.cxb,${pth}/16_abundances.cxb,${pth}/24_abundances.cxb
 
-# Run left control vs left pulsed
-cuffdiff \
-   -p 8 \
-   -o LCvLP \
-   -L LC,LP \
-   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
-   --multi-read-correct \
-   --min-alignment-count 10 \
-   --FDR 0.05 \
-   --library-type fr-firststrand \
-   --verbose \
-   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/3_abundances.cxb,${pth}/7_abundances.cxb,${pth}/9_abundances.cxb,${pth}/17_abundances.cxb,${pth}/19_abundances.cxb,${pth}/21_abundances.cxb \
-   ${pth}/1_abundances.cxb,${pth}/5_abundances.cxb,${pth}/11_abundances.cxb,${pth}/13_abundances.cxb,${pth}/15_abundances.cxb,${pth}/23_abundances.cxb
-
-# Run right control vs right pulsed
-cuffdiff \
-   -p 8 \
-   -o RCvRP \
-   -L RC,RP \
-   --frag-bias-correct /work/frr6/RETINA/TROUT_REF/Omykiss.genome.fa \
-   --multi-read-correct \
-   --min-alignment-count 10 \
-   --FDR 0.05 \
-   --library-type fr-firststrand \
-   --verbose \
-   /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
-   ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb \
-   ${pth}/2_abundances.cxb,${pth}/6_abundances.cxb,${pth}/12_abundances.cxb,${pth}/14_abundances.cxb,${pth}/16_abundances.cxb,${pth}/24_abundances.cxb
 ```
 Description of parameters:
 - -p 8 :: use 8 CPUs (threads)
@@ -209,8 +163,10 @@ Description of parameters:
 - --library-type fr-firststrand :: library type, normal for dUTP protocols
 - --verbose :: log-friendly verbose processing
 - location of merged annotation file
-- comma separated list of files for first group (see --L)
-- comma separated list of files for second group (see --L)
+- comma separated list of files for first group (see --L) (LC)
+- comma separated list of files for second group (see --L) (RC)
+- comma separated list of files for third group (see --L) (LP)
+- comma separated list of files for fourth group (see --L) (RP)
 
 ## Step 5: Visualization in R using CUMMERBUND v2.18
 ```
