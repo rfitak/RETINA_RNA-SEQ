@@ -6,4 +6,5 @@ The code for analysis of the trout retina RNA-seq data.  The outline and associa
 4. [Map trimmed reads to reference](./map-reads.md)
    * [Calculate summary mapping statistics](./bam-stats.md)
 5. [Verify quantification with STAR and HTSeq](./counts.md)
+6. [Differential Expression using DESEQ2](./DESEQ2.md)
 6. [Assembly and quantification in CUFFLINKS](./cufflinks-workflow.md)
