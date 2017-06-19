@@ -1,6 +1,6 @@
 # Mapping the trimmed and paired reads to the indexed reference genome using STAR v020201
 This section performs the mapping, or alignment, of reads to the reference genome.  The following code generates a new folder numbered according to their order in the seqfiles.list file.  The numbers are provided by the SLURM array job queue as $SLURM_ARRAY_TASK_ID
-```
+```bash
 # Make a mapping folder and move inside it.
 mkdir MAPPING
 cd MAPPING
