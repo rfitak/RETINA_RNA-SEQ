@@ -2,7 +2,7 @@
 This set of scripts is to count reads mapping to each gene (expression).
 First, the counting of HTSeq v0.7.2 was compared with that of STAR.
 I only verified the methods using one BAM file.
-```
+```bash
 # Move into the Mapping folder
 cd /work/frr6/RETINA/MAPPING
 
@@ -21,7 +21,7 @@ htseq-count \
 I compared the above results with the fourth column of STAR's output file <basename>-ReadsPerGene.out.tab.  The results were identical so no need to count using HTSeq.
 
 Make final table of counts for each file from the STAR output (only the fourth column)
-```
+```bash
 # Build table of Raw Counts
 cat \
    <(echo "Gene") \
