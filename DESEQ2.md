@@ -36,6 +36,11 @@ dds$Treatment = relevel(dds$Treatment, "CONTROL")
 # Remove lowly expressed genes
 dds.trim = dds[rowSums(counts(dds))>10,]
 
+# Get a list of coefficients
+resultsNames(dds.trim)
+   # [1] "Intercept"                   "Eye_R_vs_L"                 
+   # [3] "Treatment_PULSED_vs_CONTROL" "EyeR.TreatmentPULSED" 
+
 # Run DESEQ2
 dds.trim = DESeq(dds.trim)
 
@@ -45,5 +50,14 @@ res = results(dds.trim, alpha = 0.05)
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
 ```
+ Maybe repeat using a grouping variable?
+ dds$group <- factor(paste0(dds$genotype, dds$condition))
+     design(dds) <- ~ group
+     dds <- DESeq(dds)
+     resultsNames(dds)
+     
+      the condition effect for genotypeIII
+     results(dds, contrast=c("group", "IIIB", "IIIA"))
 
+ 
 ## Visualizations
