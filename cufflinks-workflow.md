@@ -7,7 +7,7 @@ All steps are guided by, or include, the reference annotations we made earlier. 
 5. Visualize in R
 
 ## Step 1:  Assembly
-```
+```bash
 # Make Cufflinks folder
 mkdir CUFFLINKS
 cd CUFFLINKS
@@ -44,7 +44,7 @@ Description of the above parameters:
 - --verbose :: log-friendly verbose processing
 
 ## Step 2: Merge Assemblies
-```
+```bash
 # Make MERGED assembly folder
 mkdir MERGED
 cd MERGED
@@ -69,7 +69,7 @@ Description of parameters:
 - --min-isoform-fraction 0.05 :: Discard isoforms with abundance below this.  Range is 0-1
 
 ## Step 3: Quantify Expression
-```
+```bash
 cd /work/frr6/RETINA/CUFFLINKS
 
 # Make new quantification folder
@@ -110,7 +110,7 @@ Description of parameters:
 - location of bam file to quanitfy expression
 
 Now clean things up a bit
-```
+```bash
 # Rename abundance files
 for i in {1..24}; do
 mv LIBRARY_${i}/abundances.cxb ${i}_abundances.cxb
@@ -118,7 +118,7 @@ rm -rf LIBRARY_${i}
 done
 ```
 ## Step 4:  Differential Expression (DE) Analysis
-```
+```bash
 cd /work/frr6/RETINA/CUFFLINKS
 
 # Make a folder for DE analysis
@@ -150,7 +150,6 @@ cuffdiff \
    ${pth}/4_abundances.cxb,${pth}/8_abundances.cxb,${pth}/10_abundances.cxb,${pth}/18_abundances.cxb,${pth}/20_abundances.cxb,${pth}/22_abundances.cxb \
    ${pth}/1_abundances.cxb,${pth}/5_abundances.cxb,${pth}/11_abundances.cxb,${pth}/13_abundances.cxb,${pth}/15_abundances.cxb,${pth}/23_abundances.cxb \
    ${pth}/2_abundances.cxb,${pth}/6_abundances.cxb,${pth}/12_abundances.cxb,${pth}/14_abundances.cxb,${pth}/16_abundances.cxb,${pth}/24_abundances.cxb
-
 ```
 Description of parameters:
 - -p 8 :: use 8 CPUs (threads)
