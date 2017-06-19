@@ -34,7 +34,7 @@ dds = DESeqDataSetFromMatrix(countData = data,
 dds$Treatment = relevel(dds$Treatment, "CONTROL")
 
 # Remove lowly expressed genes
-dds.trim = dds[rowSums(counts(dds))>0,]
+dds.trim = dds[rowSums(counts(dds))>10,]
 
 # Run DESEQ2
 dds.trim = DESeq(dds.trim)
