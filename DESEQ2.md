@@ -81,20 +81,15 @@ resultsNames(dds.trim)
 res = results(dds.trim, contrast = c("Group", "L_CONTROL", "L_PULSED"), alpha = 0.05)
    # 0 DE genes, 2 genes FDR < 0.1 
 res = results(dds.trim, contrast = c("Group", "R_CONTROL", "R_PULSED"), alpha = 0.05)
-   # 0 DE genes, 2 genes FDR < 0.1 
+   # 1 DE gene, 1 gene FDR < 0.1 
 res = results(dds.trim, contrast = c("Group", "L_CONTROL", "R_CONTROL"), alpha = 0.05)
-   # 0 DE genes, 2 genes FDR < 0.1 
+   # 0 DE genes, 0 genes FDR < 0.1 
 res = results(dds.trim, contrast = c("Group", "L_PULSED", "R_PULSED"), alpha = 0.05)
-   # 0 DE genes, 2 genes FDR < 0.1 
-
+   # 0 DE genes, 0 genes FDR < 0.1 
 
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
 ```
-
-     
-      the condition effect for genotypeIII
-     results(dds, contrast=c("group", "IIIB", "IIIA"))
 
  
 ## Visualizations
