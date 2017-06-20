@@ -49,10 +49,24 @@ res = results(dds.trim, alpha = 0.05)
 
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
-
-# Summary of results
    # "EyeR.TreatmentPULSED" : 0 DE genes, 0 FDR < 0.1
+   
+# Start a list of results.
+DESeq2.results=list()
+
+# Append to the list of results
+DESeq2.results=c(DESeq2.results, EyeR.TreatmentPULSED = res.ordered)
+
+# Summary of R vs L eye, added to the list of results.
+res = results(dds.trim, name = "Eye_R_vs_L", alpha = 0.05)
+res.ordered = res[order(res$padj),]
+DESeq2.results=c(DESeq2.results, Eye_R_vs_L = res.ordered)
    # "Eye_R_vs_L" : 0 DE genes, 0 FDR < 0.1
+
+# Summary of Pulsed vs Control, added to the list of results.
+res = results(dds.trim, name = "Treatment_PULSED_vs_CONTROL", alpha = 0.05)
+res.ordered = res[order(res$padj),]
+DESeq2.results=c(DESeq2.results, Treatment_PULSED_vs_CONTROL = res.ordered)
    # "Treatment_PULSED_vs_CONTROL" : 1 DE genes, 5 FDR < 0.1
 ```
 The above code looks for differential expression either by comparing overall:
@@ -80,19 +94,27 @@ resultsNames(dds.trim)
    # [1] "Intercept"      "GroupL_CONTROL" "GroupL_PULSED"  "GroupR_CONTROL"
    # [5] "GroupR_PULSED"
 
-# Get results for group of interest with false discovery rate (FDR) < 0.05
-res = results(dds.trim, contrast = c("Group", "L_CONTROL", "L_PULSED"), alpha = 0.05)
-   # 0 DE genes, 2 genes FDR < 0.1 
-res = results(dds.trim, contrast = c("Group", "R_CONTROL", "R_PULSED"), alpha = 0.05)
-   # 1 DE gene, 1 gene FDR < 0.1 
-res = results(dds.trim, contrast = c("Group", "L_CONTROL", "R_CONTROL"), alpha = 0.05)
-   # 0 DE genes, 0 genes FDR < 0.1 
-res = results(dds.trim, contrast = c("Group", "L_PULSED", "R_PULSED"), alpha = 0.05)
-   # 0 DE genes, 0 genes FDR < 0.1 
-
-# Re-order results by FDR
+# Get results for group of interest with false discovery rate (FDR) < 0.05, then append to results
+res = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
 res.ordered = res[order(res$padj),]
-```
+DESeq2.results=c(DESeq2.results, L_PULSED_vs_L_CONTROL = res.ordered)
+   # 0 DE genes, 2 genes FDR < 0.1 
+res = results(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), alpha = 0.05)
+res.ordered = res[order(res$padj),]
+DESeq2.results=c(DESeq2.results, R_PULSED_vs_R_CONTROL = res.ordered)
+   # 1 DE gene, 1 gene FDR < 0.1
+res = results(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), alpha = 0.05)
+res.ordered = res[order(res$padj),]
+DESeq2.results=c(DESeq2.results, R_CONTROL_vs_L_CONTROL = res.ordered)
+   # 0 DE genes, 0 genes FDR < 0.1 
+res = results(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), alpha = 0.05)
+res.ordered = res[order(res$padj),]
+DESeq2.results=c(DESeq2.results, R_PULSED_vs_L_PULSED = res.ordered)
+   # 0 DE genes, 0 genes FDR < 0.1 
 
+# Save all results as an R data file
+save(DESeq2.results, file = "DESeq2-results.R")
+```
+All the differential expression results are now saved as an R data file that can be loaded anytime using `load("DESeq2-results.R")`.
  
 ## Visualizations
