@@ -50,11 +50,48 @@ res = results(dds.trim, alpha = 0.05)
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
 ```
- Maybe repeat using a grouping variable?
- dds$group <- factor(paste0(dds$genotype, dds$condition))
-     design(dds) <- ~ group
-     dds <- DESeq(dds)
-     resultsNames(dds)
+The above code looks for differential expression either by comparing overall:
+- CONTROL vs PULSED
+- LEFT vs RIGHT
+- Additive effect of the pulse within a group (EyeR.TreatmentPULSED).
+
+
+
+
+Next, we will repeat the above analysis but this time using the "Group" variable only.  We now can compare different combinations of groups, but lack an interaction effect.
+```R
+# Starting from the 'data' object above
+# Build DESEQ data object
+dds = DESeqDataSetFromMatrix(countData = data,
+   colData = DataFrame(samplesheet),
+   design = ~ Group)
+   
+# Remove lowly expressed genes
+dds.trim = dds[rowSums(counts(dds))>10,]
+
+# Run DESEQ2
+dds.trim = DESeq(dds.trim)
+
+# Get a list of coefficients
+resultsNames(dds.trim)
+   # [1] "Intercept"      "GroupL_CONTROL" "GroupL_PULSED"  "GroupR_CONTROL"
+   # [5] "GroupR_PULSED"
+
+# Get results for group of interest with false discovery rate (FDR) < 0.05
+res = results(dds.trim, contrast = c("Group", "L_CONTROL", "L_PULSED"), alpha = 0.05)
+   # 0 DE genes, 2 genes FDR < 0.1 
+res = results(dds.trim, contrast = c("Group", "R_CONTROL", "R_PULSED"), alpha = 0.05)
+   # 0 DE genes, 2 genes FDR < 0.1 
+res = results(dds.trim, contrast = c("Group", "L_CONTROL", "R_CONTROL"), alpha = 0.05)
+   # 0 DE genes, 2 genes FDR < 0.1 
+res = results(dds.trim, contrast = c("Group", "L_PULSED", "R_PULSED"), alpha = 0.05)
+   # 0 DE genes, 2 genes FDR < 0.1 
+
+
+# Re-order results by FDR
+res.ordered = res[order(res$padj),]
+```
+
      
       the condition effect for genotypeIII
      results(dds, contrast=c("group", "IIIB", "IIIA"))
