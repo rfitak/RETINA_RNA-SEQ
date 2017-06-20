@@ -36,26 +36,29 @@ dds$Treatment = relevel(dds$Treatment, "CONTROL")
 # Remove lowly expressed genes
 dds.trim = dds[rowSums(counts(dds))>10,]
 
+# Run DESEQ2
+dds.trim = DESeq(dds.trim)
+
 # Get a list of coefficients
 resultsNames(dds.trim)
    # [1] "Intercept"                   "Eye_R_vs_L"                 
    # [3] "Treatment_PULSED_vs_CONTROL" "EyeR.TreatmentPULSED" 
-
-# Run DESEQ2
-dds.trim = DESeq(dds.trim)
 
 # Filter Results for false discovery rate (FDR) < 0.05
 res = results(dds.trim, alpha = 0.05)
 
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
+
+# Summary of results
+   # "EyeR.TreatmentPULSED" : 0 DE genes, 0 FDR < 0.1
+   # "Eye_R_vs_L" : 0 DE genes, 0 FDR < 0.1
+   # "Treatment_PULSED_vs_CONTROL" : 1 DE genes, 5 FDR < 0.1
 ```
 The above code looks for differential expression either by comparing overall:
 - CONTROL vs PULSED
 - LEFT vs RIGHT
 - Additive effect of the pulse within a group (EyeR.TreatmentPULSED).
-
-
 
 
 Next, we will repeat the above analysis but this time using the "Group" variable only.  We now can compare different combinations of groups, but lack an interaction effect.
