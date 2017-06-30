@@ -19,7 +19,7 @@ forward=RAW_SEQS/${name}.F.fastq.gz
 reverse=RAW_SEQS/${name}.R.fastq.gz
 ```
 
-Now two variables, $forward and $reverse, contain the name of matching forward and reverse (paired) sequencing files.  Now we begin the trimming procedure using the program TRIMMOMATIC v0.36.  Before trimming, we have to assign "trimmomatic" to the actual command to run the program.  This is a simple bash script called "trimmomatic" and is in the ~/bin folder where all programs are stored.
+Now two variables, $forward and $reverse, contain the name of matching forward and reverse (paired) sequencing files.  Now we begin the trimming procedure using the program TRIMMOMATIC v0.35.  Before trimming, we have to assign "trimmomatic" to the actual command to run the program.  This is a simple bash script called "trimmomatic" and is in the ~/bin folder where all programs are stored.
 ```bash
 #!/bin/bash
 
