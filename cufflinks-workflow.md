@@ -170,7 +170,24 @@ Description of parameters:
 ## Step 5: Visualization in R using CUMMERBUND v2.18
 ```
 # R code
+library(cummeRbund)
+cuff = readCufflinks(".")
+
+# Get list of significant genes
+sigGeneIds<-getSig(cuff,alpha=0.05,level="genes")
+
 ```
+Results:
+CuffSet instance with:
+	 4 samples
+	 126060 genes
+	 273985 isoforms
+	 162818 TSS
+	 46597 CDS
+	 756360 promoters
+	 976908 splicing
+	 252690 relCDS
+No Significant genes, isoforms, TSS, or CDS detected
 
 
 
