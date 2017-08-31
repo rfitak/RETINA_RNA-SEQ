@@ -118,3 +118,10 @@ save(DESeq2.results, file = "DESeq2-results.R")
 All the differential expression results are now saved as an R data file that can be loaded anytime using `load("DESeq2-results.R")`.
  
 ## Visualizations
+```R
+# Convert to log transformed data
+rld <- rlog(dds.trim)
+
+# Plot PCA/MDS
+plotPCA(dds.trim, intgroup="Group", ntop=1000)
+```
