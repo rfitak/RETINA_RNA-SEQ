@@ -91,8 +91,8 @@ dds.trim = DESeq(dds.trim)
 
 # Get a list of coefficients
 resultsNames(dds.trim)
-   # [1] "Intercept"      "GroupL_CONTROL" "GroupL_PULSED"  "GroupR_CONTROL"
-   # [5] "GroupR_PULSED"
+   # [1] "Intercept"                    "Group_L_PULSED_vs_L_CONTROL" 
+   # [3] "Group_R_CONTROL_vs_L_CONTROL" "Group_R_PULSED_vs_L_CONTROL" 
 
 # Get results for group of interest with false discovery rate (FDR) < 0.05, then append to results
 res = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
