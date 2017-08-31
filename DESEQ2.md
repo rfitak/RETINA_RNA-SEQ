@@ -124,4 +124,13 @@ rld <- rlog(dds.trim)
 
 # Plot PCA/MDS
 plotPCA(rld, intgroup="Group", ntop=1000)
+
+# Plot Dendrogram
+distsRL <- dist(t(assay(rld)))
+mat<- as.matrix(distsRL)
+hc <- hclust(distsRL)
+hc$labels <- paste(samplesheet$Group, "_", c(1:24))
+plot(hc)
+
+# MA plot
 ```
