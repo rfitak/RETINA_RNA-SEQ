@@ -123,5 +123,5 @@ All the differential expression results are now saved as an R data file that can
 rld <- rlog(dds.trim)
 
 # Plot PCA/MDS
-plotPCA(dds.trim, intgroup="Group", ntop=1000)
+plotPCA(rld, intgroup="Group", ntop=1000)
 ```
