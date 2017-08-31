@@ -37,7 +37,7 @@ dds$Treatment = relevel(dds$Treatment, "CONTROL")
 dds.trim = dds[rowSums(counts(dds))>10,]
 
 # Run DESEQ2
-dds.trim = DESeq(dds.trim)
+dds.trim = DESeq(dds.trim, betaPrior = F)
 
 # Get a list of coefficients
 resultsNames(dds.trim)
@@ -87,16 +87,25 @@ dds = DESeqDataSetFromMatrix(countData = data,
 dds.trim = dds[rowSums(counts(dds))>10,]
 
 # Run DESEQ2
-dds.trim = DESeq(dds.trim)
+dds.trim = DESeq(dds.trim, betaPrior = F)
 
 # Get a list of coefficients
 resultsNames(dds.trim)
    # [1] "Intercept"                    "Group_L_PULSED_vs_L_CONTROL" 
-   # [3] "Group_R_CONTROL_vs_L_CONTROL" "Group_R_PULSED_vs_L_CONTROL" 
+   # [3] "Group_R_CONTROL_vs_L_CONTROL" "Group_R_PULSED_vs_L_CONTROL"
 
 # Get results for group of interest with false discovery rate (FDR) < 0.05, then append to results
 res = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
 res.ordered = res[order(res$padj),]
+
+# Apply shrinkage for very low-expressed genes
+resLFC <- lfcShrink(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), res = res)
+
+
+
+
+
+
 DESeq2.results=c(DESeq2.results, L_PULSED_vs_L_CONTROL = res.ordered)
    # 0 DE genes, 2 genes FDR < 0.1 
 res = results(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), alpha = 0.05)
