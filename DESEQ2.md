@@ -135,10 +135,10 @@ res3 = results(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), alpha 
 res3.LFC <- lfcShrink(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), res = res3)
 res4 = results(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), alpha = 0.05)
 res4.LFC <- lfcShrink(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), res = res4)
-res1.ordered = res1.LFC[order(res1.LFC$padj),]   # 0 DE genes, 2 genes FDR < 0.1
-res2.ordered = res2.LFC[order(res2.LFC$padj),]   # 1 DE gene, 1 gene FDR < 0.1
-res3.ordered = res3.LFC[order(res3.LFC$padj),]   # 0 DE genes, 0 genes FDR < 0.1
-res4.ordered = res4.LFC[order(res4.LFC$padj),]   # 0 DE genes, 0 genes FDR < 0.1
+res1.ordered = res1.LFC[order(res1.LFC$padj),]
+res2.ordered = res2.LFC[order(res2.LFC$padj),]
+res3.ordered = res3.LFC[order(res3.LFC$padj),]
+res4.ordered = res4.LFC[order(res4.LFC$padj),]
 
 # Merge to results (bp = betaprior)
 DESeq2.results=c(DESeq2.results, LPvsLC_bpF = res1.ordered, RPvsRC_bpF = res2.ordered, RCvsLC_bpF = res3.ordered, RPvsLP_bpF = res4.ordered)
