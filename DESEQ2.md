@@ -164,4 +164,7 @@ hc$labels <- paste(samplesheet$Group, "_", c(1:24))
 plot(hc)
 
 # MA plot
+res1 = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05, addMLE = T)
+plotMA(res1, MLE = TRUE, alpha=0.05) # unshrunk estimates
+plotMA(res1, MLE = FALSE, alpha=0.05) # shrunken estimates
 ```
