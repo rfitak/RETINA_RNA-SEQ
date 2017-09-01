@@ -45,7 +45,7 @@ resultsNames(dds.trim)
    # [3] "Treatment_PULSED_vs_CONTROL" "EyeR.TreatmentPULSED" 
 
 # Filter Results for false discovery rate (FDR) < 0.05
-res = results(dds.trim, alpha = 0.05)
+res = results(dds.trim, name = "EyeR.TreatmentPULSED", alpha = 0.05)
 
 # Re-order results by FDR
 res.ordered = res[order(res$padj),]
@@ -86,8 +86,37 @@ dds = DESeqDataSetFromMatrix(countData = data,
 # Remove lowly expressed genes
 dds.trim = dds[rowSums(counts(dds))>10,]
 
-# Run DESEQ2
-dds.trim = DESeq(dds.trim, betaPrior = F)
+# Run DESEQ2 (with beta prior, which includes shrinking LFC)
+dds.trim = DESeq(dds.trim, betaPrior = T)
+
+# Get a list of coefficients
+resultsNames(dds.trim)
+   # [1] "Intercept"      "GroupL_CONTROL" "GroupL_PULSED"  "GroupR_CONTROL"
+   # [5] "GroupR_PULSED"
+
+# Get results for group of interest with false discovery rate (FDR) < 0.05, then append to results
+res1 = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
+res2 = results(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), alpha = 0.05)
+res3 = results(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), alpha = 0.05)
+res4 = results(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), alpha = 0.05)
+res1.ordered = res1[order(res1$padj),]   # 0 DE genes, 2 genes FDR < 0.1
+res2.ordered = res2[order(res2$padj),]   # 1 DE gene, 1 gene FDR < 0.1
+res3.ordered = res3[order(res3$padj),]   # 0 DE genes, 0 genes FDR < 0.1
+res4.ordered = res4[order(res4$padj),]   # 0 DE genes, 0 genes FDR < 0.1
+
+# Merge to results (bp = betaprior)
+DESeq2.results=c(DESeq2.results, LPvsLC_bpT = res1.ordered, RPvsRC_bpT = res2.ordered, RCvsLC_bpT = res3.ordered, RPvsLP_bpT = res4.ordered)
+
+
+
+
+
+
+
+
+
+
+
 
 # Get a list of coefficients
 resultsNames(dds.trim)
