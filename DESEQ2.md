@@ -75,7 +75,7 @@ The above code looks for differential expression either by comparing overall:
 - Additive effect of the pulse within a group (EyeR.TreatmentPULSED).
 
 
-Next, we will repeat the above analysis but this time using the "Group" variable only.  We now can compare different combinations of groups, but lack an interaction effect.
+Next, we will repeat the above analysis but this time using the "Group" variable only.  We now can compare different combinations of groups, but lack an interaction effect.  By default, a beta Prior is included which shrinks the LFC estimates.
 ```R
 # Starting from the 'data' object above
 # Build DESEQ data object
@@ -106,17 +106,20 @@ res4.ordered = res4[order(res4$padj),]   # 0 DE genes, 0 genes FDR < 0.1
 
 # Merge to results (bp = betaprior)
 DESeq2.results=c(DESeq2.results, LPvsLC_bpT = res1.ordered, RPvsRC_bpT = res2.ordered, RCvsLC_bpT = res3.ordered, RPvsLP_bpT = res4.ordered)
+```
+Alternatively, you can run the analysis without the beta prior and perform the shrinkage of LFC estimates separately.  However, the p-values are calculated from the un-shrunken estimates!
+```R
+# Starting from the 'data' object above
+# Build DESEQ data object
+dds = DESeqDataSetFromMatrix(countData = data,
+   colData = DataFrame(samplesheet),
+   design = ~ Group)
 
+# Remove lowly expressed genes
+dds.trim = dds[rowSums(counts(dds))>10,]
 
-
-
-
-
-
-
-
-
-
+# Run DESEQ2 (without beta prior, shrinking LFC after)
+dds.trim = DESeq(dds.trim, betaPrior = F)
 
 # Get a list of coefficients
 resultsNames(dds.trim)
@@ -124,31 +127,21 @@ resultsNames(dds.trim)
    # [3] "Group_R_CONTROL_vs_L_CONTROL" "Group_R_PULSED_vs_L_CONTROL"
 
 # Get results for group of interest with false discovery rate (FDR) < 0.05, then append to results
-res = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
-res.ordered = res[order(res$padj),]
+res1 = results(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), alpha = 0.05)
+res1.LFC <- lfcShrink(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), res = res1)
+res2 = results(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), alpha = 0.05)
+res2.LFC <- lfcShrink(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), res = res2)
+res3 = results(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), alpha = 0.05)
+res3.LFC <- lfcShrink(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), res = res3)
+res4 = results(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), alpha = 0.05)
+res4.LFC <- lfcShrink(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), res = res4)
+res1.ordered = res1.LFC[order(res1.LFC$padj),]   # 0 DE genes, 2 genes FDR < 0.1
+res2.ordered = res2.LFC[order(res2.LFC$padj),]   # 1 DE gene, 1 gene FDR < 0.1
+res3.ordered = res3.LFC[order(res3.LFC$padj),]   # 0 DE genes, 0 genes FDR < 0.1
+res4.ordered = res4.LFC[order(res4.LFC$padj),]   # 0 DE genes, 0 genes FDR < 0.1
 
-# Apply shrinkage for very low-expressed genes
-resLFC <- lfcShrink(dds.trim, contrast = c("Group", "L_PULSED", "L_CONTROL"), res = res)
-
-
-
-
-
-
-DESeq2.results=c(DESeq2.results, L_PULSED_vs_L_CONTROL = res.ordered)
-   # 0 DE genes, 2 genes FDR < 0.1 
-res = results(dds.trim, contrast = c("Group", "R_PULSED", "R_CONTROL"), alpha = 0.05)
-res.ordered = res[order(res$padj),]
-DESeq2.results=c(DESeq2.results, R_PULSED_vs_R_CONTROL = res.ordered)
-   # 1 DE gene, 1 gene FDR < 0.1
-res = results(dds.trim, contrast = c("Group", "R_CONTROL", "L_CONTROL"), alpha = 0.05)
-res.ordered = res[order(res$padj),]
-DESeq2.results=c(DESeq2.results, R_CONTROL_vs_L_CONTROL = res.ordered)
-   # 0 DE genes, 0 genes FDR < 0.1 
-res = results(dds.trim, contrast = c("Group", "R_PULSED", "L_PULSED"), alpha = 0.05)
-res.ordered = res[order(res$padj),]
-DESeq2.results=c(DESeq2.results, R_PULSED_vs_L_PULSED = res.ordered)
-   # 0 DE genes, 0 genes FDR < 0.1 
+# Merge to results (bp = betaprior)
+DESeq2.results=c(DESeq2.results, LPvsLC_bpF = res1.ordered, RPvsRC_bpF = res2.ordered, RCvsLC_bpF = res3.ordered, RPvsLP_bpF = res4.ordered)
 
 # Save all results as an R data file
 save(DESeq2.results, file = "DESeq2-results.R")
