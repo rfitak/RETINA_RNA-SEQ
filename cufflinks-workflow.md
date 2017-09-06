@@ -176,6 +176,9 @@ cuff = readCufflinks(".")
 # Get list of significant genes
 sigGeneIds<-getSig(cuff,alpha=0.05,level="genes")
 
+# Plot Dendrogram
+hc = hclust(JSdist(makeprobs(log10(repFpkmMatrix(genes(cuff))+1))))
+plot(hc)
 ```
 Results:
 CuffSet instance with:
