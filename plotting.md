@@ -37,9 +37,9 @@ for (i in 1:nrow(retina.R)){
 data = cbind(retina.R$log2FoldChange, retina.L$log2FoldChange, brain.sig$log2.fold_change.)
 ```
 The log2FC values for the three comparisons are now stored in the variable `data`. These three comparison are:
-1.  Retina: Right-pulsed vs Right-control
-2.  Retina: Left-pulsed vs Left-control
-3.  Brain: Pulsed vs Control
+- Retina: Right-pulsed vs Right-control
+- Retina: Left-pulsed vs Left-control
+- Brain: Pulsed vs Control
 
 ```R
 # Plotting
