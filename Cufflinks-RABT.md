@@ -135,7 +135,12 @@ To summarize, there were:
 - 62,932 top HSP hits
 - 20,884 unique database matches
 
+Now some basic plotting in R
+```R
+library(ggplot2)
+a = read.table("lncRNA-TopHit.tsv", sep = "\t", header = F)
 
+```
 
 
 
