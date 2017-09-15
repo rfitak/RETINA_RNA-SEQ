@@ -78,12 +78,18 @@ p = ggplot(data, aes(x = names, y = Percent))
 p = p + geom_bar(stat = 'identity')
 p = p + coord_flip()
 p = p + scale_x_discrete(limits = rev(names))
-p = p + theme(axis.text=element_text(size=12), axis.title=element_text(size=14), axis.title.y=element_blank())
+p = p + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), axis.title.y = element_blank())
 p
 ```
 
+
+
+Extra code for plotting transcripts per gene
 ```R
-a=scan("transcripts-per-gene.list")
+library(ggplot2)
+a = scan("transcripts-per-gene.list")
 b = ifelse( a > 20, 20, a)
-qplot(b, geom="histogram", binwidth = 1) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14)) + labs(x = "Isoforms per gene", y = "Count")
+p = qplot(b, geom = "histogram", binwidth = 1)
+p = p + theme(axis.text = element_text(size=12), axis.title = element_text(size = 14))
+p = p + labs(x = "Isoforms per gene", y = "Count")
 ```
