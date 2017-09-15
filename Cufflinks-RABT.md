@@ -47,11 +47,18 @@ Intron chain level: 	100.0	 23.8	100.0	 55.1
  Total union super-loci across all input datasets: 126080
 ```
 
-Now we will make a list of all the isoforms along with its gene id (XLOC_) and class code
+Now we will make a list of all the isoforms along with its gene id (XLOC\_) and class code
 ```bash
 perl -ne \
    'm/gene_id "([^"]*)";.*transcript_id "([^"]*)".*class_code "([^"]*)"/; print "$1\t$2\t$3\n"' merged.gtf | \
    sort | \
    uniq > merged.class_codes.tsv
 ```
-These class
+These class codes are as follows:
+- = - Complete match of intron chain
+- j - Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript
+- o - Generic exonic overlap with a reference transcript
+- s - An intron of the transfrag overlaps a reference intron on the opposite strand (likely due to read mapping errors)
+- u - Unknown, intergenic transcript
+- x - Exonic overlap with reference on the opposite strand
+
