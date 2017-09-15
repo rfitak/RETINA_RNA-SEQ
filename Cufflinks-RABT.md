@@ -138,8 +138,19 @@ To summarize, there were:
 Now some basic plotting in R
 ```R
 library(ggplot2)
+
+# Read in blast results
 a = read.table("lncRNA-TopHit.tsv", sep = "\t", header = F)
 
+# Make data table
+eval = log10(a$V11)
+eval = ifelse( eval < -180, -180, eval)
+data = data.frame(eval = eval, length = a$V4, identity = a$V3)
+
+# Plot results
+p = ggplot(data, aes(eval)) + geom_density(fill = "#009E73", color = "#009E73")
+p = p + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
+p = p + labs(x = expression('Log'[10](E-value)), y = "Density")
 ```
 
 
