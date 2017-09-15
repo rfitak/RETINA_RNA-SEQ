@@ -19,15 +19,15 @@ Summary of the parameters:
 - -o: output file prefix
 - the merged gtf file from CUFFMERGE
 
-Summary of the output file 'merged.stats'
-\#= Summary for dataset: ../MERGED/merged.gtf :
-\#     Query mRNAs :  274039 in  126080 loci  (203849 multi-exon transcripts)
-\#            (34430 multi-transcript loci, ~2.2 transcripts per locus)
-\# Reference mRNAs :   46622 in   46602 loci  (43310 multi-exon). 
-\# Super-loci w/ reference transcripts:    33682. 
-\#--------------------|   Sn   |  Sp   |  fSn |  fSp  
-        Base level: 	100.0	 39.1	  - 	  - 
-        Exon level: 	104.9	 47.1	100.0	 58.0
+Summary of the output file 'merged.stats'  
+\#= Summary for dataset: ../MERGED/merged.gtf :  
+\#     Query mRNAs :  274039 in  126080 loci  (203849 multi-exon transcripts)  
+\#            (34430 multi-transcript loci, ~2.2 transcripts per locus)  
+\# Reference mRNAs :   46622 in   46602 loci  (43310 multi-exon)  
+\# Super-loci w/ reference transcripts:    33682  
+\# Type | Sn | Sp | fSn | fSp
+Base level | 100.0| 39.1 | - | - 
+Exon level: 	104.9	 47.1	100.0	 58.0
       Intron level: 	100.0	 61.6	100.0	 71.3
 Intron chain level: 	100.0	 23.8	100.0	 55.1
   Transcript level: 	100.1	 17.0	100.0	 18.7
