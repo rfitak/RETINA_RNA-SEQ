@@ -47,33 +47,10 @@ Intron chain level: 	100.0	 23.8	100.0	 55.1
  Total union super-loci across all input datasets: 126080
 ```
 
-
-
-
-
-
-\#= Summary for dataset: ../MERGED/merged.gtf :  
-\#     Query mRNAs :  274039 in  126080 loci  (203849 multi-exon transcripts)  
-\#            (34430 multi-transcript loci, ~2.2 transcripts per locus)  
-\# Reference mRNAs :   46622 in   46602 loci  (43310 multi-exon)  
-\# Super-loci w/ reference transcripts:    33682  
-\# Type | Sn | Sp | fSn | fSp
---- | --- | --- | --- | ---
-Base level | 100.0| 39.1 | - | - 
-Exon level: 	104.9	 47.1	100.0	 58.0
-      Intron level: 	100.0	 61.6	100.0	 71.3
-Intron chain level: 	100.0	 23.8	100.0	 55.1
-  Transcript level: 	100.1	 17.0	100.0	 18.7
-       Locus level: 	100.0	 33.4	100.0	 33.4
-
-     Matching intron chains:   48520
-              Matching loci:   46602
-
-          Missed exons:       0/323551	(  0.0%)
-           Novel exons:  204913/720957	( 28.4%)
-        Missed introns:       0/276929	(  0.0%)
-         Novel introns:   79556/449303	( 17.7%)
-           Missed loci:       0/46602	(  0.0%)
-            Novel loci:   80624/126080	( 63.9%)
-
- Total union super-loci across all input datasets: 126080 
+Now we will make a list of all the isoforms along with its gene id (XLOC_\#\#\#\#\#\) and class code
+```bash
+perl -ne \
+   'm/gene_id "([^"]*)";.*transcript_id "([^"]*)".*class_code "([^"]*)"/; print "$1\t$2\t$3\n"' merged.gtf | \
+   sort | \
+   uniq > merged.class_codes.tsv
+```
