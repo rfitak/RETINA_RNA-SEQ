@@ -151,6 +151,7 @@ data = data.frame(eval = eval, length = a$V4, identity = a$V3)
 p = ggplot(data, aes(eval)) + geom_density(fill = "#009E73", color = "#009E73")
 p = p + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
 p = p + labs(x = expression('Log'[10](E-value)), y = "Density")
+p
 ```
 
 
@@ -168,4 +169,5 @@ b = ifelse( a > 20, 20, a)
 p = qplot(b, geom = "histogram", binwidth = 1)
 p = p + theme(axis.text = element_text(size=12), axis.title = element_text(size = 14))
 p = p + labs(x = "Isoforms per gene", y = "Count")
+p
 ```
