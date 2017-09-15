@@ -8,4 +8,5 @@ The code for analysis of the trout retina RNA-seq data.  The outline and associa
 5. [Verify quantification with STAR and HTSeq](./counts.md)
 6. [Differential Expression using DESEQ2](./DESEQ2.md)
 7. [Assembly and quantification in CUFFLINKS](./cufflinks-workflow.md)
-8. [Various plotting code and functions](./plotting.md)
+8. [Analysis of the CUFFLINKS reference annotation-based transcript (RABT) assembly](./Cufflinks-RABT.md)
+9. [Various plotting code and functions](./plotting.md)
