@@ -93,13 +93,54 @@ gffread \
    novel.genes.gtf \
    -g Omykiss.genome.fa \
    -E \
-   -w out.fa
+   -w novel-genes.fa
 ```
 Summary of the ```gffread``` command parameters:
 - novel.genes.gtf - input gtf file
 - -g - fasta file of genome sequence
 - -E - expose (warn about) duplicate transcript IDs and other potential problems with the given GFF/GTF records
 - -w - output results in fasta format to this file
+
+Next, we will compare these novel transcripts using blastn with a published dataset of lncRNA molecules in rainbow trout in [Al-Tobasei et al. 2016](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0148940).  The authors published a dataset of 54k putative lncRNAs.
+```bash
+# Download and unpack the 54k dataset
+wget https://www.animalgenome.org/repository/pub/MTSU2015.1014/putative_54k.fa.gz
+gunzup putative_54k.fa.gz
+mv putative_54k.fa lncRNA_54k.fa
+
+# Build a blast database
+makeblastdb \
+   -in lncRNA_54k.fa \
+   -dbtype nucl \
+   -title lncRNA \
+   -out lncRNA
+
+# Blast the novel transcripts to the lncRNA database
+blastn \
+   -query out.fa \
+   -db lncRNA \
+   -out blast.results.tsv \
+   -outfmt 6 \
+   -num_threads 4 \
+   -max_target_seqs 1 \
+   -evalue 0.01
+
+# Finally, grab only the best hit (HSP) for each target sequence
+awk '!x[$1]++' < blast.results.tsv > lncRNA-TopHit.tsv
+```
+To summarize, there were:
+- 98,071 novel gene sequences
+- 101,000 blast hits
+- 62,932 top HSP hits
+- 20,884 unique database matches
+
+
+
+
+
+
+
+
 
 
 Extra code for plotting transcripts per gene
