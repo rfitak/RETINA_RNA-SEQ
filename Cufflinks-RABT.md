@@ -62,3 +62,11 @@ These class codes are as follows:
 - u - Unknown, intergenic transcript
 - x - Exonic overlap with reference on the opposite strand
 
+Next, we will use R to make a barplot of the class code distribution
+```R
+library(ggplot2)
+
+
+
+qplot(b, geom="histogram", binwidth = 1) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14)) + labs(x = "Isoforms per gene", y = "Count")
+```
