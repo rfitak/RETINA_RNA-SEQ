@@ -82,6 +82,24 @@ p = p + theme(axis.text = element_text(size = 12), axis.title = element_text(siz
 p
 ```
 
+In this section we will now explore the novel 'genes' found by the CUFFLINKS assembly.
+First, let's make a fasta file of the novel genes
+```bash
+# Make a new gtf file of only the novel genes
+grep -v "gene_name" merged.combined.gtf > novel.genes.gtf
+
+# Now make a new fasta file of these novel genes
+gffread \
+   novel.genes.gtf \
+   -g Omykiss.genome.fa \
+   -E \
+   -w out.fa
+```
+Summary of the ```gffread``` command parameters:
+- novel.genes.gtf - input gtf file
+- -g - fasta file of genome sequence
+- -E - expose (warn about) duplicate transcript IDs and other potential problems with the given GFF/GTF records
+- -w - output results in fasta format to this file
 
 
 Extra code for plotting transcripts per gene
