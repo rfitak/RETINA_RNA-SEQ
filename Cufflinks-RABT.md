@@ -83,7 +83,7 @@ p
 ```
 
 
-##In this section we will now explore the novel 'genes' found by the CUFFLINKS assembly.
+## In this section we will now explore the novel 'genes' found by the CUFFLINKS assembly.
 First, let's make a fasta file of the novel genes
 ```bash
 # Make a new gtf file of only the novel genes
