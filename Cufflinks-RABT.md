@@ -65,8 +65,25 @@ These class codes are as follows:
 Next, we will use R to make a barplot of the class code distribution
 ```R
 library(ggplot2)
+a = read.table("merged.class_codes.tsv", sep = "\t", header = F)
+names = c("Potentially novel isoform",
+   "Potentially novel gene",
+   "Exact match to reference",
+   "Partial exonic match to reference",
+   "Exonic overlap with reference on the opposite strand",
+   "Intronic match to reference (possibly from read mapping errors)")
+Percent = summary(a$V3)[c(order(summary(a$V3), decreasing = T))] / nrow(a)
+data = data.frame(names = names, Percent = Percent)
+p = ggplot(data, aes(x = names, y = Percent))
+p = p + geom_bar(stat = 'identity')
+p = p + coord_flip()
+p = p + scale_x_discrete(limits = rev(names))
+p = p + theme(axis.text=element_text(size=12), axis.title=element_text(size=14), axis.title.y=element_blank())
+p
+```
 
-
-
+```R
+a=scan("transcripts-per-gene.list")
+b = ifelse( a > 20, 20, a)
 qplot(b, geom="histogram", binwidth = 1) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14)) + labs(x = "Isoforms per gene", y = "Count")
 ```
