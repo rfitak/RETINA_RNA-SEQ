@@ -147,11 +147,17 @@ eval = log10(a$V11)
 eval = ifelse( eval < -180, -180, eval)
 data = data.frame(eval = eval, length = a$V4, identity = a$V3)
 
-# Plot results
+# Plot E-value results
 p = ggplot(data, aes(eval)) + geom_density(fill = "#009E73", color = "#009E73")
 p = p + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
 p = p + labs(x = expression('Log'[10](E-value)), y = "Density")
 p
+
+# Plot length results
+l = ggplot(data, aes(length)) + geom_density(fill = "#009E73", color = "#009E73")
+l = l + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
+l = l + scale_x_log10(limits = c(10,10000), breaks = c(10, 100, 1000, 10000)) + labs(x = "Match length (bp)", y = "Density")
+l
 ```
 
 
