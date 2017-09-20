@@ -167,7 +167,7 @@ Description of parameters:
 - comma separated list of files for third group (see --L) (LP)
 - comma separated list of files for fourth group (see --L) (RP)
 
-Alternatively, the analysis can also be run using a "contrasts" file to limit the comparisons made to a subset of all pairwise comparisons.  Simply add the parameter:
+Alternatively, the analysis can also be run using a "contrasts" file to limit the comparisons made to a subset of all pairwise comparisons.  Simply add the parameter:  
 --contrast-file (file containing list of contrasts (comparisons) to make.  Simple two column design.)
 
 ## Step 5: Visualization in R using CUMMERBUND v2.18
