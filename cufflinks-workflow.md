@@ -144,6 +144,7 @@ cuffdiff \
    --min-alignment-count 10 \
    --FDR 0.05 \
    --library-type fr-firststrand \
+   --contrast-file contrasts.list \
    --verbose \
    /work/frr6/RETINA/CUFFLINKS/MERGED/merged.gtf \
    ${pth}/3_abundances.cxb,${pth}/7_abundances.cxb,${pth}/9_abundances.cxb,${pth}/17_abundances.cxb,${pth}/19_abundances.cxb,${pth}/21_abundances.cxb \
@@ -160,6 +161,7 @@ Description of parameters:
 - --min-alignment-count 10 :: minimum number of alignments in a locus for testing, 10 by default
 - --FDR 0.05 :: False discovery rate cutoff
 - --library-type fr-firststrand :: library type, normal for dUTP protocols
+- --contrast-file :: file containing list of contrasts (comparisons) to make.  Simple two column design.
 - --verbose :: log-friendly verbose processing
 - location of merged annotation file
 - comma separated list of files for first group (see --L) (LC)
