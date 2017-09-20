@@ -181,16 +181,16 @@ hc = hclust(JSdist(makeprobs(log10(repFpkmMatrix(genes(cuff))+1))))
 plot(hc)
 ```
 Results:
-CuffSet instance with:
-	 4 samples
-	 126060 genes
-	 273985 isoforms
-	 162818 TSS
-	 46597 CDS
-	 756360 promoters
-	 976908 splicing
-	 252690 relCDS
-No Significant genes, isoforms, TSS, or CDS detected
+CuffSet instance with: 
+- 4 samples  
+- 126060 genes  
+- 273985 isoforms  
+- 162818 TSS  
+- 46597 CDS  
+- 756360 promoters  
+- 976908 splicing  
+- 252690 relCDS  
+No Significant genes, isoforms, TSS, or CDS detected  
 
 
 
