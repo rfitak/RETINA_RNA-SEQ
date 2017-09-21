@@ -54,7 +54,10 @@ p1 = p1 + geom_point(alpha = 0.25, na.rm = T)
 p1 = p1 + xlim(c(-10,10))
 p1 = p1 + ylim(c(-10,10))
 p1 = p1 + geom_smooth(method='lm',formula=y~x, fullrange = T, se = F, na.rm = T)
-p1 = p1 + labs(x = expression('Right Retina Log'[2]*FC))
+p1 = p1 + xlab(expression('Right Retina Log'[2]*FC))
+p1 = p1 + ylab(expression('Left Retina Log'[2]*FC))
+p1 = p1 + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
+p1
 ```
 
 
