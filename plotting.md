@@ -1,6 +1,81 @@
 # Additional plotting functions
 The various plotting code here is to compare the expression results in the retinae from both the Cufflinks and DESeq2 analysis with the brain expression results from our previous study published in Biology Letters.
 
+First, make a plot to compare LC in the left and right retinas from CUFFLINKS
+```R
+# Load libraries
+library(cummeRbund)
+library(DESeq2)
+
+# Load CUFFLINKS results
+cuff = readCufflinks("DIFF")
+
+# Make table of Left and Right LFC
+L = diffData(genes(cuff), "LP", "LC")[,c(1,5,8)]
+R = diffData(genes(cuff), "RP", "RC")[,c(1,5,8)]
+LR = cbind(L, R)
+colnames(LR) = c("ID_L","Status_L", "LFC_L","ID_R", "Status_R", "LFC_R" )
+LR = subset(LR, Status_L == "OK" & Status_R == "OK")
+   # Result: 65110 loci shared as 'OK'
+LR = subset(LR, LFC_L < Inf & LFC_L > -Inf & LFC_R < Inf & LFC_R > -Inf)
+   # Result: 64805 loci shared as not infinite values
+
+# Build linear model
+fit1 <- lm(LFC_L ~ LFC_R, data = LR)
+summary(fit1)
+   # Result:
+      # Residuals:
+      #      Min       1Q   Median       3Q      Max 
+      # -10.9580  -0.2331  -0.0274   0.2022   6.2554 
+      # Coefficients:
+      #             Estimate Std. Error t value Pr(>|t|)    
+      # (Intercept) 0.020621   0.002302    8.96   <2e-16 ***
+      # LFC_R       0.382155   0.003279  116.56   <2e-16 ***
+      # ---
+      # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+      # Residual standard error: 0.5847 on 64803 degrees of freedom
+      # Multiple R-squared:  0.1733,	Adjusted R-squared:  0.1733 
+      # F-statistic: 1.359e+04 on 1 and 64803 DF,  p-value: < 2.2e-16
+
+# Corellation test
+cor.test(LR$LFC_L,LR$LFC_R)
+   # Result:
+      # t = 116.56, df = 64803, p-value < 2.2e-16
+      # alternative hypothesis: true correlation is not equal to 0
+      # 95 percent confidence interval:
+      #  0.4099161 0.4226460
+      # sample estimates:
+      #       cor 
+      # 0.4163014
+
+# Plot the L vs R LFC comparison
+p1 = ggplot(LR, aes(x = LFC_R, y = LFC_L))
+p1 = p1 + geom_point(alpha = 0.25, na.rm = T)
+p1 = p1 + xlim(c(-10,10))
+p1 = p1 + ylim(c(-10,10))
+p1 = p1 + geom_smooth(method='lm',formula=y~x, fullrange = T, se = F, na.rm = T)
+p1 = p1 + labs(x = expression('Right Retina Log'[2]*FC))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```R
 # Get list of significant brain genes
 a=read.table("/media/rfitak/Seagate\ Expansion\ Drive/TROUT_PROJECT/CUFFLINKS/CUFFDIFF/5-DAYS/gene_exp.diff", sep="\t", header=T)
