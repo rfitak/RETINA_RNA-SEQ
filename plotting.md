@@ -60,6 +60,41 @@ p1 = p1 + theme(axis.text = element_text(size = 12), axis.title = element_text(s
 p1
 ```
 
+Now, a single, differentially expressed gene was identified using DESEQ2.  This gene, *gamma crystallin M3-like* (*crygm3*), has protein ID: GSONMT00002796001. An individual plot for this gene can be created using the following code:
+```R
+library(DESeq2)
+
+# Set color pallete
+colors = c("grey", "black")
+
+# Use the Final DESeq2 object (dds.trim) used for differential expression analysis
+crygm3 = plotCounts(dds.trim, gene = "GSONMT00002796001", intgroup=c("Eye", "Treatment"), returnData=T, normalized = T)
+
+# Add a "group" variable to the resulting data table
+crygm3$group = paste(crygm3$Eye, crygm3$Treatment, sep="_")
+
+# Get the mean within each group and separately for Control and Pulsed groups
+df_C <- data.frame(x1 = 1,
+   x2 = 2,
+   y1 = mean(subset(crygm3, group == "L_CONTROL")$count),
+   y2 = mean(subset(crygm3, group == "R_CONTROL")$count))
+df_P <- data.frame(x1 = 1,
+   x2 = 2,
+   y1 = mean(subset(crygm3, group == "L_PULSED")$count),
+   y2 = mean(subset(crygm3, group == "R_PULSED")$count))
+
+# Now build the ggplot
+crygm3.plot = ggplot(crygm3, aes(x = Eye, y = count, col = as.factor(Treatment)))
+crygm3.plot = crygm3.plot + geom_point()
+crygm3.plot = crygm3.plot + geom_segment(aes(x=x1, y = y1, xend = x2, yend = y2), data = df_C, col = "grey", lwd = 2)
+crygm3.plot = crygm3.plot + geom_segment(aes(x=x1, y = y1, xend = x2, yend = y2), data = df_P, col = "black", lwd = 2)
+crygm3.plot = crygm3.plot + scale_y_log10()
+crygm3.plot = crygm3.plot + labs(y = "Expression (Counts)")
+crygm3.plot = crygm3.plot + theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14))
+crygm3.plot = crygm3.plot + theme(legend.title=element_blank())
+crygm3.plot = crygm3.plot + scale_color_manual(values = colors)
+crygm3.plot
+```
 
 ### OLD STUFF BELOW
 
