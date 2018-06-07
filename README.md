@@ -1,4 +1,4 @@
-# Differential expression in the retina of rainbo trout exposed to a magnetic pulse
+# Differential expression in the retina of rainbow trout exposed to a magnetic pulse
 The code for analysis of the trout retina RNA-seq data.  The results from the following analyses are published in:  
 
 Fitak RR, Schweikert LE, Wheeler BR, Ernst DA, Lohmann KJ, and Johnsen S. (2018) Near absence of differential gene expression in the retina of rainbow trout after exposure to a magnetic pulse: Implications for magnetoreception. *Biology Letters*. **14**(6): 20180209. doi: [10.1098/rsbl.2018.0209](https://doi.org/10.1098/rsbl.2018.0209)  
